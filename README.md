@@ -65,7 +65,7 @@ This is just a template and need to make few modifications to be able to use it!
 
 1. Make sure to use your AWS Account in the GitHub workflow file
 2. Make sure to set up proper IAM permissions for your Lambda and SQS
-3. Provisioning of resources work with the above 2 steps itself! If you want to test the resources, you can use the below steps
+3. Provisioning of resources works with the above 2 steps itself! If you want to test the resources, you can use the below steps
 4. Use AWS SDK (boto3) to send simple messages to SQS, which Lambda polls and consumes!
 5. Also, if required, write a simple lambda function to read messages from SQS and print it to cloudwatch logs/write to S3!. (Lambda has a generous free tier for personal needs!)
 
