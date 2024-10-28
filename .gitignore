@@ -10,3 +10,4 @@ package.json
 lambda.zip
 .idea/*
 .venv/*
+.vscode/*
