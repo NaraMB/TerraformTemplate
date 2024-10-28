@@ -1,0 +1,12 @@
+.terraform
+*.tfstate*
+terraform/**/*.zip
+src/*.zip
+__pycache__
+dist
+venv
+.yo-rc.json
+package.json
+lambda.zip
+.idea/*
+.venv/*

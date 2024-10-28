@@ -1,0 +1,6 @@
+# Remote state backend configuration file. Very important for Terraform to keep track of changes
+# This remote state backend file should be different for different environments like dev, test, prod, etc.
+bucket         = "<S3 Bukcet Name without s3:// prefix>"
+key            = "<Bucket Prefix>"
+region         = "<AWS Region>"
+encrypt        = "true"

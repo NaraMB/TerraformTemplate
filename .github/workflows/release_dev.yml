@@ -1,0 +1,106 @@
+name: Infra validation without provisioning with terraform
+
+# In real world, generally, automated deployments happen generally on dev branch and main branch; but can also use a feature branch to test the workflow
+on:
+  push:
+    branches: ["development"]
+
+env:
+  BACKEND_FILE: "dev.tfbackend"
+  VAR_FILE:     "dev.tfvars"
+  PLAN_FILE:   "terraform.plan"
+
+jobs:
+  build-infra:
+    strategy:
+      matrix:
+        os: [ ubuntu-latest ]
+    runs-on: ${{ matrix.os }}
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+
+      # Replace with your AWS account and region
+      - name: Set Environment Variable based on Branch
+        run: |
+            if [[ "$GITHUB_REF" == "refs/heads/development" ]]; then
+              echo "AWS_ACCOUNT=<Your AWS Account>" >> $GITHUB_ENV
+              echo "AWS_REGION=<AWS Region>" >> $GITHUB_ENV
+            else
+               echo "Not Intended Branch"
+            fi
+
+      ## Make sure to add AWS_ACCESS_KEY_ID and AWS_SECRET_ACCESS_KEY to your repository secrets
+      - name: Setup AWS environment Access
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ env.AWS_REGION }}
+
+
+      - name: Zip Lambda source code
+        run: |
+          cd project/terraform
+          zip -r s3_write.zip ../src/lambda/s3_write
+
+      - name: Zip Lambda layer
+        run: |
+          cd project/terraform
+          zip -r common_lambda_layer.zip ../src/lambda/common_lambda_layer
+
+      - name: Install Terraform
+        uses: hashicorp/setup-terraform@v3
+        with:
+            terraform_version: 1.8.0
+
+      - name: Verify terraform installation
+        run: terraform --version
+
+      # pip install -r requirements.txt -> Use this command to install any new libraries and test python source code for lambda functions
+      - name: Install requirements.txt (placeholder)
+        run: echo "place holder for installing requirements.txt"
+
+      - name: Initialize terraform
+        run: |
+          cd project/terraform
+          terraform init -backend-config=BACKEND_FILE -reconfigure
+
+      - name: Format the tf configurations
+        run: terraform fmt -check
+
+      - name: Validate the tf configurations
+        run: terraform validate
+
+      - name: Setup TFLint
+        uses: terraform-linters/setup-tflint@v4
+
+      - name: linting-tests
+        run: tflint --init && tflint
+
+      # Checkov tests look for encryption-at-rest for AWS services such as SNS, which requires KMS encryption, but it's not free!
+      # If your service is not configured with encryption-at-rest for such services, checkov test fails. So, use this test with caution.
+      # So, disabling the checkov tests
+#      - name: Checkov tests
+#        uses: bridgecrewio/checkov-action@v12
+#        with:
+#          framework: terraform
+
+      - name: terraform Plan
+        run: |
+          cd project/terraform
+          terraform plan -var-file=VAR_FILE -input=false -out=PLAN_FILE
+
+      # Use terraform test [options] -json -verbose to understand the mock results and for debugging the test failures
+      - name: terraform test
+        run: |
+          cd project/terraform
+          terraform test -var-file=VAR_FILE
+
+      # In real world, generally, "apply" command is used on dev branch (for dev account) and main branch (for prod account)
+      - name: OpenTofu Apply
+        if: github.ref == 'refs/heads/development' && github.event_name == 'push'
+        run: |
+          cd contact_interaction/terraform
+          tofu apply -auto-approve $plan_file
