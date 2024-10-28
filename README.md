@@ -23,7 +23,7 @@ If you're a beginner or yet to learn terraform basics, strongly recommended to c
 2. Learn about basics of terraform provisioning with docker [here](https://developer.hashicorp.com/terraform/tutorials/docker-get-started)
 
 
-## MODULES
+### Terraform Modules
 In simpler terms, modules are like functions in programming. 
 You create re-usable code (configurations in TF) wrapped in a function 
 (module) and communicate with the function through input 
@@ -44,7 +44,7 @@ Learn about basics of terraform modules [here](https://learn.hashicorp.com/tutor
 
 
 
-## Mock Tests
+### Mock Tests with Terraform
 Mock tests with newer versions of terraform has been very handy in being able 
 to mimic AWS resource creation with dummy ARNs. This makes sure that the configurations
 are correct before the actual provision.
