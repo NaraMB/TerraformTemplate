@@ -10,7 +10,7 @@ Some features of the repo include:
 6. Github actions to automate the infrastructure deployment
 
 ## Installations
-Any IDE supporting python and terraform can be used. I've used pycharm.
+Any IDE supporting python and terraform can be used. I have used VS code.
 
 It's preferable to install terraform locally and play with some tutorials. 
 Install terraform locally from documentation here: [terraform installation](https://developer.hashicorp.com/terraform/tutorials/aws-get-started/install-cli)
