@@ -25,9 +25,9 @@ If you're a beginner or yet to learn terraform basics, strongly recommended to c
 
 ### Terraform Modules
 In simpler terms, modules are like functions in programming. 
-You create re-usable code (configurations in TF) wrapped in a function 
-(module) and communicate with the function through input 
-(variable in terraform) and output (output in terraform) parameters.
+You create re-usable configurations (re-usable code blocks) wrapped in a module 
+(function) and communicate with other modules or root module (main function) through variables 
+(function parameters) and outputs (return variables in function).
 
 Terraform modules are one of the most elegant ways of grouping the 
 resources. It helps in avoiding clutter in the root module and makes 
