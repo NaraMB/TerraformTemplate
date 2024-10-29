@@ -1,5 +1,4 @@
-# Variables are the inputs of the module that is used to initialize here and the actual values being configured in the root module for flexibility
-# So, important to use them as inputs to the root module
+# Variables are the inputs to the module. Good practice is to initialize here and configure the actual values in the root module for flexibility
 variable "tags" {
   type = map(string)
   description = "A map of common tags to be merged with resource-specific tags"
