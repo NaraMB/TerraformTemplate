@@ -2,8 +2,8 @@
 This repo is a template for real world use case. It uses terraform and Github actions to automate the infrastructure provisions on AWS.
 
 Some features of the repo include:
-1. showcase of modules to avoid clutter in the root terraform module (AWS SQS provisioning)
-2. showcase of non-modular way of grouping resource in the root terraform module (Lambda Provisioning)
+1. showcase of modules to avoid clutter in the root terraform module (see SQS provisioning)
+2. showcase of non-modular, simple grouping of resources in the root terraform module when there is minimal provisioning (see Lambda Provisioning)
 3. Differentiate configurations for development and production environments
 4. Using mock tests to mimic AWS resource creation and catch any issues locally before the actual deployment
 5. Terraform best practices such as linting, security checks
