@@ -33,7 +33,7 @@ Terraform modules are one of the most elegant ways of grouping the
 resources. It helps in avoiding clutter in the root module and makes 
 the code more readable and maintainable especially with large projects.
 
-Terraform also recommends to use modules cautiously without causing too
+Terraform also recommends using modules cautiously without causing too
 many nested blocks!
 In real world scenario, one module per resource or a group of resources
 is a good practice depending on the complexity of the project.
@@ -53,7 +53,7 @@ In place of dummy values, we have to use default values for any specific
 resource during mock tests. For example, we have to create default ARN 
 value for a SQS provision, that conforms to a regex pattern verified by
 terraform.
-This helps greatly in completing integration test using mocking behavior.
+This helps greatly in completing unit tests using mocking behavior. (It even sort of covers integration test)
 Check out the tests folder for more details.
 
 Learn about using mock tests [here](https://developer.hashicorp.com/terraform/language/tests/mocking)
