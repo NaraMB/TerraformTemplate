@@ -7,7 +7,7 @@ Some features of the repo include:
 3. Differentiate configurations for development and production environments
 4. Using mock tests to mimic AWS resource creation and catch any issues locally before the actual deployment
 5. Terraform best practices such as linting, security checks
-6. Github actions to automate the infrastructure deployment
+6. Github actions to automate the infrastructure deployment.
 
 ### Data Flow shown in the template
 ![Data Flow of the template](Data_Flow.png)
