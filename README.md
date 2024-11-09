@@ -2,8 +2,8 @@
 This repo is a template for real world use case. It uses terraform and Github actions to automate the infrastructure provisions on AWS.
 
 Some features of the repo include:
-1. showcase of modules to avoid clutter in the root terraform module (AWS SQS provisioning)
-2. showcase of non-modular way of grouping resource in the root terraform module (Lambda Provisioning)
+1. showcase of modules to avoid clutter in the root terraform module (see SQS provisioning)
+2. showcase of non-modular, simple grouping of resources in the root terraform module when there is minimal provisioning (see Lambda Provisioning)
 3. Differentiate configurations for development and production environments
 4. Using mock tests to mimic AWS resource creation and catch any issues locally before the actual deployment
 5. Terraform best practices such as linting, security checks
@@ -28,15 +28,15 @@ If you're a beginner or yet to learn terraform basics, strongly recommended to c
 
 ### Terraform Modules
 In simpler terms, modules are like functions in programming. 
-You create re-usable code (configurations in TF) wrapped in a function 
-(module) and communicate with the function through input 
-(variable in terraform) and output (output in terraform) parameters.
+You create re-usable configurations (re-usable code blocks) wrapped in a module 
+(function) and communicate with other modules or root module (main function) through variables 
+(function parameters) and outputs (return variables in function).
 
 Terraform modules are one of the most elegant ways of grouping the 
 resources. It helps in avoiding clutter in the root module and makes 
 the code more readable and maintainable especially with large projects.
 
-Terraform also recommends to use modules cautiously without causing too
+Terraform also recommends using modules cautiously without causing too
 many nested blocks!
 In real world scenario, one module per resource or a group of resources
 is a good practice depending on the complexity of the project.
@@ -56,7 +56,7 @@ In place of dummy values, we have to use default values for any specific
 resource during mock tests. For example, we have to create default ARN 
 value for a SQS provision, that conforms to a regex pattern verified by
 terraform.
-This helps greatly in completing integration test using mocking behavior.
+This helps greatly in completing unit tests using mocking behavior. (It even sort of covers integration test)
 Check out the tests folder for more details.
 
 Learn about using mock tests [here](https://developer.hashicorp.com/terraform/language/tests/mocking)

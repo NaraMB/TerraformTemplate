@@ -31,7 +31,7 @@ jobs:
                echo "Not Intended Branch"
             fi
 
-      ## Make sure to add AWS_ACCESS_KEY_ID and AWS_SECRET_ACCESS_KEY to your repository secrets
+      ## Make sure to add AWS_ACCESS_KEY_ID and AWS_SECRET_ACCESS_KEY to your github secrets
       - name: Setup AWS environment Access
         uses: aws-actions/configure-aws-credentials@v1
         with:
